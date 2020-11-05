@@ -1,6 +1,6 @@
 from tkinter import *
 import random
-
+import tkinter.messagebox
 
 colours = [
     'Red', 'Blue', 'Green', 'Pink', 'Black', 'Yellow', 'Orange', 'White',
@@ -14,31 +14,26 @@ time_left = 30
 
 
 def menu():
-    mainmenu = Menu(root) 
+    mainmenu = Menu(root)
     root.config(menu=mainmenu)
     filemenu = Menu(mainmenu, tearoff=0)
-    filemenu.add_command(label="Open", font=("Times New Roman", 16,"bold"), foreground="gray", background="lightblue")
-    filemenu.add_command(label="New", font=("Times New Roman", 16,"bold"), foreground="gray", background="lightblue")
-    filemenu.add_command(label="Save", font=("Times New Roman", 16,"bold"), foreground="gray", background="lightblue")
+    filemenu.add_command(label="Open", font=("Times New Roman", 16, "bold"))
+    filemenu.add_command(label="New", font=("Times New Roman", 16, "bold"))
+    filemenu.add_command(label="Save", font=("Times New Roman", 16, "bold"))
     filemenu.add_separator()
-    filemenu.add_command(label="Exit", font=("Times New Roman", 16,"bold"), foreground="red", background="limegreen")
-    
+    filemenu.add_command(label="Exit", font=("Times New Roman", 16, "bold"))
     helpmenu = Menu(mainmenu, tearoff=0)
-    helpmenu.add_command(label="Help", font=("Times New Roman", 16,"bold"))
-    helpmenu.add_command(label="About", font=("Times New Roman", 16,"bold"))
-    
-    mainmenu.add_cascade(label="Menu",
-                        menu=filemenu, font=("Times New Roman", 20,"bold"))
-    mainmenu.add_cascade(label="Spravka",
-                        menu=helpmenu,font=("Times New Roman", 20,"bold"))
+    helpmenu.add_command(label="Help", font=("Times New Roman", 16, "bold"))
+    helpmenu.add_command(label="About", font=("Times New Roman", 16, "bold"))
+    mainmenu.add_cascade(label="Men", menu=filemenu, font=("Helvetica", 20))
+    mainmenu.add_cascade(label="Sprav", menu=helpmenu, font=("Helvetica", 20))
+
 
 def score_out():
     global score, time_left
-    end = Label(root,
-    text="Your score: "+ str(score),
-    font=("Times New Roman", 20))
+    end = Label(root, text="Your score: " +
+                str(score), font=("Times New Roman", 20))
     end.pack()
-
 
     score = 0
     time_left = 30
@@ -57,7 +52,7 @@ def next_colour():
     e.focus_set()
     if e.get().lower() == colours[1].lower():
         score += 1
-    e.delete(0, tkinter.END)
+    e.delete(0, END)
 
     random.shuffle(colours)
 
@@ -103,11 +98,10 @@ timeLabel = Label(
 timeLabel.pack()
 
 
-
 label = Label(root, font=("Times New Roman", 32))
 label.pack()
 
-e = Entry(root, font=("Times New Roman", 20), bd=8)
+e = Entry(root, font=("Times New Roman", 20, "bold"), bd=8)
 
 root.bind('<Return>', start_game)
 e.pack()
