@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="form-wrap">
+  <h1>Регистрация</h1>
+  <form method="post">
+    <label>ФИО</label>
+    <input name="full_name" required>
+    <label>Email</label>
+    <input name="email" type="email" required>
+    <label>Пароль (минимум 6 символов)</label>
+    <input name="password" type="password" minlength="6" required>
+    <label>Роль</label>
+    <select name="role">
+      <option value="student">Студент</option>
+      <option value="teacher">Преподаватель</option>
+    </select>
+    <button class="btn" type="submit">Создать аккаунт</button>
+  </form>
+</div>
+{% endblock %}

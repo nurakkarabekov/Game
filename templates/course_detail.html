@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<article class="card">
+  <h1>{{ course.title }}</h1>
+  <p>{{ course.description }}</p>
+  <p><strong>{{ course.price }} сом</strong></p>
+  <p>Преподаватель: {{ course.teacher.full_name }}</p>
+
+  {% if user.role == 'student' and not has_access %}
+    <form method="post" action="{{ url_for('buy_course', course_id=course.id) }}">
+      <button class="btn" type="submit">Оплатить через MBank</button>
+    </form>
+  {% endif %}
+</article>
+
+{% if has_access %}
+  <h2>Уроки курса</h2>
+  {% for lesson in course.lessons %}
+    <article class="card">
+      <h3>{{ lesson.title }}</h3>
+      <video controls width="100%" src="{{ url_for('videos', filename=lesson.video_path) }}"></video>
+    </article>
+  {% else %}
+    <p>Уроки еще не добавлены.</p>
+  {% endfor %}
+{% endif %}
+{% endblock %}

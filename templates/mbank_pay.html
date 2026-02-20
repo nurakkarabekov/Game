@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="form-wrap">
+  <h1>Оплата через MBank</h1>
+  <p>Заказ #{{ order.id }} | Курс: <strong>{{ order.course.title }}</strong></p>
+  <p>Сумма к оплате: <strong>{{ order.amount }} сом</strong></p>
+  <p>Это учебная демо-интеграция: нажмите кнопку для подтверждения оплаты.</p>
+  <form method="post">
+    <button type="submit" class="btn">Подтвердить оплату MBank</button>
+  </form>
+</div>
+{% endblock %}

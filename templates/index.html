@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+  <h1>Учебный сайт с админкой и оплатой через MBank</h1>
+  <p>Преподаватели загружают видеоуроки, студенты покупают и смотрят курсы.</p>
+  <a class="btn" href="{{ url_for('courses_list') }}">Перейти к курсам</a>
+</section>
+
+<section>
+  <h2>Популярные курсы</h2>
+  <div class="grid">
+    {% for course in courses %}
+      <article class="card">
+        <h3>{{ course.title }}</h3>
+        <p>{{ course.description[:120] }}...</p>
+        <p><strong>{{ course.price }} сом</strong></p>
+        <a class="btn btn-light" href="{{ url_for('course_detail', course_id=course.id) }}">Подробнее</a>
+      </article>
+    {% else %}
+      <p>Пока нет опубликованных курсов.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
