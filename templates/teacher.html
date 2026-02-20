@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Кабинет преподавателя</h1>
+<div class="two-col">
+  <div class="card">
+    <h2>Создать курс</h2>
+    <form method="post" action="{{ url_for('new_course') }}">
+      <label>Название курса</label>
+      <input name="title" required>
+      <label>Описание</label>
+      <textarea name="description" rows="4" required></textarea>
+      <label>Цена (сом)</label>
+      <input name="price" type="number" step="0.01" min="1" required>
+      <button class="btn" type="submit">Создать</button>
+    </form>
+  </div>
+</div>
+
+<h2>Мои курсы</h2>
+{% for c in courses %}
+  <article class="card">
+    <h3>{{ c.title }} <small>({{ 'Опубликован' if c.is_published else 'Ожидает публикации' }})</small></h3>
+    <p>{{ c.description }}</p>
+    <p><strong>{{ c.price }} сом</strong></p>
+
+    <h4>Загрузить видеоурок</h4>
+    <form method="post" action="{{ url_for('new_lesson', course_id=c.id) }}" enctype="multipart/form-data">
+      <label>Название урока</label>
+      <input name="title" required>
+      <label>Видео (mp4, mov, avi, mkv, webm)</label>
+      <input name="video" type="file" accept="video/*" required>
+      <button class="btn btn-light" type="submit">Загрузить урок</button>
+    </form>
+
+    <ul>
+      {% for l in c.lessons %}
+        <li>{{ l.title }}</li>
+      {% else %}
+        <li>Уроков пока нет.</li>
+      {% endfor %}
+    </ul>
+  </article>
+{% else %}
+  <p>Курсы еще не созданы.</p>
+{% endfor %}
+{% endblock %}

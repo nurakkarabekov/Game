@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Каталог курсов</h1>
+<div class="grid">
+{% for c in courses %}
+  <article class="card">
+    <h3>{{ c.title }}</h3>
+    <p>{{ c.description[:140] }}...</p>
+    <p>Преподаватель: {{ c.teacher.full_name }}</p>
+    <p><strong>{{ c.price }} сом</strong></p>
+    {% if user and user.role == 'student' and c.id in enrolled_ids %}
+      <span class="tag">Куплен</span>
+    {% endif %}
+    <a class="btn btn-light" href="{{ url_for('course_detail', course_id=c.id) }}">Подробнее</a>
+  </article>
+{% else %}
+  <p>Курсы скоро появятся.</p>
+{% endfor %}
+</div>
+{% endblock %}

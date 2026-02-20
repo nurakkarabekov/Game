@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Кабинет студента</h1>
+<h2>Мои курсы</h2>
+<div class="grid">
+  {% for c in my_courses %}
+    <article class="card">
+      <h3>{{ c.title }}</h3>
+      <a class="btn btn-light" href="{{ url_for('course_detail', course_id=c.id) }}">Открыть</a>
+    </article>
+  {% else %}
+    <p>Пока нет купленных курсов.</p>
+  {% endfor %}
+</div>
+
+<h2>История оплат</h2>
+<table>
+  <tr><th>ID</th><th>Курс</th><th>Сумма</th><th>Статус</th><th>MBank Ref</th></tr>
+  {% for o in orders %}
+    <tr><td>{{ o.id }}</td><td>{{ o.course.title }}</td><td>{{ o.amount }}</td><td>{{ o.status }}</td><td>{{ o.mbank_ref or '-' }}</td></tr>
+  {% else %}
+    <tr><td colspan="5">Нет заказов</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

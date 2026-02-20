@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="form-wrap">
+  <h1>Вход</h1>
+  <form method="post">
+    <label>Email</label>
+    <input name="email" type="email" required>
+    <label>Пароль</label>
+    <input name="password" type="password" required>
+    <button class="btn" type="submit">Войти</button>
+  </form>
+</div>
+{% endblock %}
